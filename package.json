@@ -1,0 +1,49 @@
+{
+  "name": "surface-of-creativity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Commoddity/surface-of-creativity.git"
+  },
+  "keywords": [],
+  "author": "Michael Moll, Isaac Vallee, Pascal van Leeuwen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Commoddity/surface-of-creativity/issues"
+  },
+  "homepage": "https://github.com/Commoddity/surface-of-creativity#readme",
+  "dependencies": {
+    "@popperjs/core": "^2.1.1",
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.4.1",
+    "config": "^3.3.0",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "jquery": "^3.4.1",
+    "mongoose": "^5.9.5",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "pg-promise": "^10.4.4",
+    "popper.js": "^1.16.1",
+    "request": "^2.88.2",
+    "shortid": "^2.2.15"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "session-file-store": "^1.4.0"
+  }
+}
