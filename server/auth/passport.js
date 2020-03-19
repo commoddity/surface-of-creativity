@@ -1,7 +1,7 @@
-const passport = require('passport'),
-  localStrategy = require('passport-local').Strategy,
-  User = require('../database/Schema').User,
-  shortid = require('shortid');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const User = require('../database/Schema').User;
+const shortid = require('shortid');
 
 passport.serializeUser((user, cb) => {
   cb(null, user);
@@ -36,10 +36,11 @@ passport.use(
             return done(null, false);
           } else {
             let user = new User();
+            user.first_name;
+            user.last_name;
             user.email = email;
             user.password = user.generateHash(password);
             user.username = req.body.username;
-            user.stream_key = shortid.generate();
             user.save((err) => {
               if (err) throw err;
               return done(null, user);

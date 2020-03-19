@@ -1,13 +1,18 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const shortid = require('shortid');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+  admin: Boolean,
+  host: Boolean,
+  active: Boolean,
+  first_name: String,
+  last_name: String,
   username: String,
   email: String,
   password: String,
-  stream_key: String
+  location: String,
+  description: String
 });
 
 UserSchema.methods.generateHash = (password) => {
@@ -16,10 +21,6 @@ UserSchema.methods.generateHash = (password) => {
 
 UserSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
-};
-
-UserSchema.methods.generateStreamKey = () => {
-  return shortid.generate();
 };
 
 module.exports = UserSchema;

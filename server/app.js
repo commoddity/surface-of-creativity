@@ -4,7 +4,6 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const middleware = require('connect-ensure-login');
 const fileStore = require('session-file-store')(session);
 const path = require('path');
@@ -12,7 +11,6 @@ const flash = require('connect-flash');
 const passport = require('./auth/passport');
 
 const mongoose = require('mongoose');
-// const config = require('./config/default');
 
 const port = process.env.SERVER_PORT;
 
@@ -24,13 +22,17 @@ mongoose.connect(`mongodb://localhost/${process.env.MONGO_DB_NAME}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+const db = mongoose.connection;
+db.on('error', () => console.error.bind(console, 'connection error:'));
+db.once('open', () =>
+  console.log(`MongoDB connected to ${process.env.MONGO_DB_NAME}`)
+);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 app.use(express.static('public'));
 app.use(flash());
 
-app.use(cookieParser);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
