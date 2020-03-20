@@ -17,7 +17,7 @@ const port = process.env.SERVER_PORT;
 const app = express();
 
 // Database connection
-mongoose.connect(`mongodb://localhost/${process.env.MONGO_DB_NAME}`, {
+mongoose.connect(`${process.env.MONGO_DB_NAME}`, {
   useNewUrlParser: true,
   useFindAndModify: true,
   useCreateIndex: true,
