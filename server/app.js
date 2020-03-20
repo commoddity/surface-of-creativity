@@ -2,6 +2,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const helmet = require('helmet');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const middleware = require('connect-ensure-login');
@@ -33,6 +34,7 @@ app.set('views', path.join(__dirname, './views'));
 app.use(express.static('public'));
 app.use(flash());
 
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
@@ -52,11 +54,12 @@ app.use(
 );
 
 // Register app routes
+app.use('/event', require('./routes/event'));
 app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));
 
-app.get('*', middleware.ensureLoggedIn(), (req, res) => {
-  res.render('index');
-});
+// app.get('*', middleware.ensureLoggedIn(), (req, res) => {
+//   res.render('index');
+// });
 
 app.listen(port, () => console.log(`App listening on ${port}!`));
