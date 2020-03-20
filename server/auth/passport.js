@@ -16,7 +16,7 @@ passport.use(
   'localRegister',
   new localStrategy(
     {
-      usernameField: 'email',
+      usernameField: 'username',
       passwordField: 'password',
       passReqToCallback: true
     },
@@ -35,9 +35,10 @@ passport.use(
 
             return done(null, false);
           } else {
+            console.log(`======new User====== ${req.body.first_name}`);
             let user = new User();
-            user.first_name;
-            user.last_name;
+            user.first_name = req.body.first_name;
+            user.last_name = req.body.last_name;
             user.email = email;
             user.password = user.generateHash(password);
             user.username = req.body.username;
@@ -57,16 +58,16 @@ passport.use(
   'localLogin',
   new localStrategy(
     {
-      usernameField: 'email',
+      usernameField: 'username',
       passwordField: 'password',
       passReqToCallback: true
     },
-    (req, email, password, done) => {
-      User.findOne({ email: email }, (err, user) => {
+    (req, username, password, done) => {
+      User.findOne({ username: username }, (err, user) => {
         if (err) return done(err);
 
         if (!user)
-          return done(null, false, req.flash('email', "Email doesn't exist."));
+          return done(null, false, req.flash('email', "username doesn't exist."));
 
         if (!user.validPassword(password))
           return done(
