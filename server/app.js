@@ -5,8 +5,6 @@ const express = require('express');
 const helmet = require('helmet');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const middleware = require('connect-ensure-login');
-const fileStore = require('session-file-store')(session);
 const path = require('path');
 const flash = require('connect-flash');
 const passport = require('./auth/passport');
@@ -43,13 +41,14 @@ app.use(passport.session());
 
 app.use(
   session({
-    store: new fileStore({
-      path: './server/sessions'
-    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    maxAge: Date().now + 60 * 1000 * 30
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24 * 7
+    }
   })
 );
 
@@ -58,8 +57,8 @@ app.use('/event', require('./routes/event'));
 app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));
 
-// app.get('*', middleware.ensureLoggedIn(), (req, res) => {
-//   res.render('index');
-// });
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
 app.listen(port, () => console.log(`App listening on ${port}!`));
