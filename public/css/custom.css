@@ -1,0 +1,18 @@
+/*! Place your custom styles here */
+/* #soc-header {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+} */
+
+.color--primary {
+  color: #e74c3c !important;
+}
+
+.btn--primary,
+.btn--primary:visited {
+  background: #e74c3c;
+  border-color: #c0392b;
+}
