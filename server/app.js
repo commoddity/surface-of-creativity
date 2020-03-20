@@ -19,6 +19,8 @@ const app = express();
 // Database connection
 mongoose.connect(`mongodb://localhost/${process.env.MONGO_DB_NAME}`, {
   useNewUrlParser: true,
+  useFindAndModify: true,
+  useCreateIndex: true,
   useUnifiedTopology: true
 });
 const db = mongoose.connection;
