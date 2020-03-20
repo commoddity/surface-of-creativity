@@ -9,9 +9,10 @@
           <a href="/">Home</a>
         </li>
         <li>
-          <a href="/event/category/music">Music</a>
+          <a href="#">Music</a>
         </li>
       </ol>
+      <% events.forEach(function(event){ %>
       <hr />
 
       <div class="row justify-content-around">
@@ -25,15 +26,14 @@
 
           <div class="heading-block">
             <h2><%= event.location %></h2>
-            <h3><%= moment(event.date).format('ll') + ' - ' +  moment(event.time,'HH:mm').format('hh:mm a') %></h3>
+            <h3><%= event.date + ' ' +  event.time %></h3>
             <a class="btn btn--primary type--uppercase"
               href="<%= event.link.indexOf('http') > -1 ? event.link : `http://${event.link}` %>">
               <span class="btn__text">
                 Watch Live Stream
               </span>
             </a>
-            <br>
-            <br>
+            <br><br>
             <a class="btn btn-outline-secondary type--uppercase" href="/event/<%=   `${event._id}` %>">
               <span class="btn__text">
                 Details
@@ -51,13 +51,19 @@
         </div>
       </div>
       <!--end of row-->
+
+      <% }) %>
     </div>
     <!--end of container-->
   </section>
 
+
   <%- include ('./sections/_category-blocks.ejs') %>
   <%- include ('./sections/_staff-picks.ejs') %>
   <%- include ('./sections/_featured-cities.ejs') %>
+
+
+
 
 </div>
 <%- include ('./partials/_footer.ejs') %>

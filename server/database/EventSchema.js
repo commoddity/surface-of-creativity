@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 const EventSchema = new Schema({
   admin: Boolean,
   host_id: Number,
-  category_id: Number,
+  host_name: String,
+  host_description: String,
+  category_id: String,
+  subcategory_id: String,
   title: String,
   link: String,
   description: String,
@@ -12,7 +15,11 @@ const EventSchema = new Schema({
   location: String,
   date: Date,
   time: String,
-  public: Boolean
+  public: Boolean,
+  approval: {
+    timestamp: Date,
+    approvedBy: String,
+  }
 });
 
 module.exports = EventSchema;
