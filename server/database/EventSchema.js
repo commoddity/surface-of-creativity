@@ -16,6 +16,7 @@ const EventSchema = new Schema({
   date: Date,
   time: String,
   public: Boolean,
+  status: String,
   approval: {
     timestamp: Date,
     approvedBy: String,

@@ -1,7 +1,7 @@
 <%- include ('./partials/_header.ejs') %>
 
 <div class="main-container bg--dark">
-  <section class="feature-large switchable bg--dark unpad">
+  <section class="feature-large switchable bg--dark pt-0">
     <div class="container">
       <h4>The Surface of Creativity</h4>
       <ol class="breadcrumbs">
@@ -16,13 +16,22 @@
 
       <div class="row justify-content-around">
         <div class="col-lg-6 col-md-6">
-          <img alt="Image" class="border--round box-shadow-wide" src="<%= event.image %>" />
+          <!-- <img alt="Image" class="border--round box-shadow-wide" src="<%= event.image %>" /> -->
+
+          <div><%= event.description %></div>
+          <hr>
+
+          <small>Host</small>
+          <h4><%= event.host_name %></h4>
+          <div><%= event.host_description %></div>
         </div>
         <div class="col-lg-5 col-md-6">
           <div class="col-md-12">
             <h1><Strong><%= event.title %></Strong></h1>
-            <a href="/event/category/<%= event.category_id %>" class="badge badge-danger p-2"><%= event.category_id %></a>
-            <a href="/event/category/<%= event.subcategory_id %>" class="badge badge-info p-2"><%= event.subcategory_id %></a>
+            <a href="/event/category/<%= event.category_id %>"
+              class="badge badge-danger p-2"><%= event.category_id %></a>
+            <a href="/event/category/<%= event.subcategory_id %>"
+              class="badge badge-info p-2"><%= event.subcategory_id %></a>
           </div>
 
           <div class="heading-block">
@@ -34,16 +43,7 @@
                 Watch Live Stream
               </span>
             </a>
-            <br>
-            <br>
-            <a class="btn btn-outline-secondary type--uppercase" href="/event/edit/<%=   `${event._id}` %>">
-              <span class="btn__text">
-                Edit
-              </span>
-            </a>
-          </div>
-          <div class="text-block">
-            <p></p>
+             
           </div>
         </div>
       </div>
@@ -53,8 +53,8 @@
   </section>
 
   <%- include ('./sections/_category-blocks.ejs') %>
-  <%- include ('./sections/_staff-picks.ejs') %>
-  <%- include ('./sections/_featured-cities.ejs') %>
+  <%# include ('./sections/_staff-picks.ejs') %>
+  <%# include ('./sections/_featured-cities.ejs') %>
 
 </div>
 <%- include ('./partials/_footer.ejs') %>

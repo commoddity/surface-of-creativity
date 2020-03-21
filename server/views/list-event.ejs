@@ -1,0 +1,45 @@
+<%- include ('./partials/_header.ejs') %>
+
+<div class="main-container bg--dark">
+  <section class="feature-large   bg--dark text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Events</h4>
+          <% events.forEach(function(event){ %>
+          <div class="row justify-content-around">
+            <div class="col-md-4">
+              <Strong><%= event.title %></Strong>
+              <small class="badge badge-info p-2"><%= event.status %></small>
+            </div>
+            <div class="col-md-4">
+              <%= moment(event.date).format('ll') + ' - ' +  moment(event.time,'HH:mm').format('hh:mm a') %>
+            </div>
+            <div class="col-md-4">
+              <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/<%=   `${event._id}` %>">
+                <span class="btn__text">
+                  Details
+                </span>
+              </a>
+              <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/edit/<%=   `${event._id}` %>">
+                <span class="btn__text">
+                  Edit
+                </span>
+              </a>
+              <a class="btn btn--sm btn-outline-danger type--uppercase" href="/event/delete/<%=   `${event._id}` %>">
+                <span class="btn__text">
+                  delete
+                </span>
+              </a>
+            </div>
+          </div>
+          <!--end of row-->
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</div>
+<%- include ('./partials/_footer.ejs') %>

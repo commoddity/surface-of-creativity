@@ -10,23 +10,45 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/create', (req, res) => {
-  res.render('create-event', { event: null });
-});
+router.get('/all',
+  async (req, res) => {
+    res.locals.events = await Event.find({ status: 'Live' });
+    res.render('events', { pageTitle: `Events` });
+  });
 
-router.get('/edit/:id', async (req, res) => {
-  try {
-    const event = res.locals.event = await Event.findById(req.params.id)
-    res.render('create-event', { pageTitle: `Edit Event | ${event.title}` });
-  } catch (error) {
-    console.log(`error`, error);
-  }
-});
+router.get('/admin/list/asdf123',
+  async (req, res) => {
+    res.locals.events = await Event.find();
+    res.render('list-event', { pageTitle: `Events` });
+  });
+router.get('/create',
+  (req, res) => {
+    res.render('create-event', { event: null });
+  });
+
+router.get('/delete/:id',
+  async (req, res) => {
+    try {
+      await Event.deleteOne({ _id: req.params.id })
+      res.redirect('/event/admin/list/asdf123');
+    } catch (error) {
+      console.log(`error`, error);
+    }
+  });
+router.get('/edit/:id',
+  async (req, res) => {
+    try {
+      const event = res.locals.event = await Event.findById(req.params.id)
+      res.render('create-event', { pageTitle: `Edit Event | ${event.title}` });
+    } catch (error) {
+      console.log(`error`, error);
+    }
+  });
 
 router.get('/category/:category_id', async (req, res) => {
   try {
     const search = `${req.params.category_id}`;
-    res.locals.events = await Event.find({ $or: [{ 'category_id': { '$regex': search, '$options': 'i' } }, { 'subcategory_id': { '$regex': search, '$options': 'i' } }] });
+    res.locals.events = await Event.find({ status: 'Live', $or: [{ 'category_id': { '$regex': search, '$options': 'i' } }, { 'subcategory_id': { '$regex': search, '$options': 'i' } }] });
     res.render('events', { pageTitle: `Events | ${req.params.category_id}` });
   } catch (error) {
     console.log(`error`, error);
@@ -49,6 +71,7 @@ router.post('/create/:eventId?', async (req, res) => {
     if (eventId) {
       await Event.updateOne({ _id: eventId }, req.body);
     } else {
+      req.body.status = 'Review';
       var event = await new Event(req.body).save();
     }
     res.redirect(`/event/${eventId || event._id}`);
