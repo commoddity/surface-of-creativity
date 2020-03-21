@@ -9,7 +9,7 @@
           <a href="/">Home</a>
         </li>
         <li>
-          <a href="/event/category/music">Music</a>
+          <a href="/event/category/<%= event.category_id %>"><%= event.category_id %></a>
         </li>
       </ol>
       <hr />
@@ -21,6 +21,8 @@
         <div class="col-lg-5 col-md-6">
           <div class="col-md-12">
             <h1><Strong><%= event.title %></Strong></h1>
+            <a href="/event/category/<%= event.category_id %>" class="badge badge-danger p-2"><%= event.category_id %></a>
+            <a href="/event/category/<%= event.subcategory_id %>" class="badge badge-info p-2"><%= event.subcategory_id %></a>
           </div>
 
           <div class="heading-block">
@@ -34,11 +36,6 @@
             </a>
             <br>
             <br>
-            <a class="btn btn-outline-secondary type--uppercase" href="/event/<%=   `${event._id}` %>">
-              <span class="btn__text">
-                Details
-              </span>
-            </a>
             <a class="btn btn-outline-secondary type--uppercase" href="/event/edit/<%=   `${event._id}` %>">
               <span class="btn__text">
                 Edit

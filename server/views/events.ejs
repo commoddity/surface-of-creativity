@@ -22,11 +22,13 @@
         <div class="col-lg-5 col-md-6">
           <div class="col-md-12">
             <h1><Strong><%= event.title %></Strong></h1>
+            <a href="/event/category/<%= event.category_id %>" class="badge badge-danger p-2"><%= event.category_id %></a>
+            <a href="/event/category/<%= event.subcategory_id %>" class="badge badge-info p-2"><%= event.subcategory_id %></a>
           </div>
 
           <div class="heading-block">
             <h2><%= event.location %></h2>
-            <h3><%= event.date + ' ' +  event.time %></h3>
+            <h3><%= moment(event.date).format('ll') + ' - ' +  moment(event.time,'HH:mm').format('hh:mm a') %></h3>
             <a class="btn btn--primary type--uppercase"
               href="<%= event.link.indexOf('http') > -1 ? event.link : `http://${event.link}` %>">
               <span class="btn__text">
@@ -37,11 +39,6 @@
             <a class="btn btn-outline-secondary type--uppercase" href="/event/<%=   `${event._id}` %>">
               <span class="btn__text">
                 Details
-              </span>
-            </a>
-            <a class="btn btn-outline-secondary type--uppercase" href="/event/edit/<%=   `${event._id}` %>">
-              <span class="btn__text">
-                Edit
               </span>
             </a>
           </div>
