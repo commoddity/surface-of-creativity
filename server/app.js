@@ -30,9 +30,9 @@ db.once('open', () =>
   console.log(`MongoDB connected to ${process.env.MONGO_DB_NAME}`)
 );
 
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
-app.use(express.static('public'));
 app.use(flash());
 
 app.use(helmet());
