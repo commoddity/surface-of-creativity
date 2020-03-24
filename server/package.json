@@ -50,7 +50,7 @@
       "public/js/",
       "test/",
       "README",
-      "server/session"
+      "server/sessions"
     ],
     "delay": "1000"
   }

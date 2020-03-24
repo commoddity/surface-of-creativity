@@ -4,11 +4,14 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const session = require('express-session');
+const fileStore = require('session-file-store')(session);
+const connectEnsureLogin = require('connect-ensure-login');
 const bodyParser = require('body-parser');
 const path = require('path');
 const flash = require('connect-flash');
 const passport = require('./auth/passport');
 const moment = require('moment');
+const MongoStore = require('connect-mongo')(session);
 const { EventCategory, Event } = require('./database/Schema');
 
 
@@ -42,11 +45,13 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
+const sessionStore = new MongoStore({ mongooseConnection: db, collection: 'sessions' })
 app.use(
   session({
+    store: sessionStore,
+    // store: new fileStore({
+    //   path: './server/sessions'
+    // }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -57,6 +62,9 @@ app.use(
     }
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(async (req, res, next) => {
   res.locals.moment = moment;
@@ -77,6 +85,17 @@ app.use('/events', async (req, res) => {
 });
 app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));
+app.use('/user', require('./routes/user'));
+
+function _ensureAdmin(req, res, next) {
+  console.log(`req.user`, req.user);
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    res.redirect('/')
+  }
+}
+app.use('/admin', connectEnsureLogin.ensureLoggedIn(), _ensureAdmin, require('./routes/admin'));
 
 app.get('/', (req, res) => {
   res.render('index');

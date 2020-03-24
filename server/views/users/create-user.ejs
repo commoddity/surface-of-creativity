@@ -1,0 +1,53 @@
+<%- include ('../partials/_header.ejs') %>
+
+<div class="main-container bg--dark">
+  <section class="height-100 imagebg text-center" data-overlay="4">
+    <!--<div class="background-image-holder"><img alt="background" src="img/inner-6.jpg"></div>-->
+    <div class="container pos-vertical-center">
+      <div class="row">
+        <div class="col-md-7 col-lg-5">
+          <h4>The Surface of Creativity</h4>
+          <h2><b>Update User</b></h2>
+          <form action="/admin/user/create/<%= user?user._id : '' %>" method="POST">
+            <div class="row">
+              <div class=" col-md-12 form-group">
+                <select class="" name="isAdmin" id="isAdmin">
+                  <option value="false">- Is Admin? -</option>
+                  <option value="true" <%= user ? (user.isAdmin == true ? 'selected' : '') : '' %>>Yes
+                  </option>
+                  <option value="false" <%= user ? (user.isAdmin == false ? 'selected' : '') : '' %>>No
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <input type="text" value="<%= user?user.first_name : '' %>" name="first_name"
+                  placeholder="First Name" />
+              </div>
+              <div class="col-md-12">
+                <input type="text" value="<%= user?user.last_name : '' %>" name="last_name" placeholder="Last Name" />
+              </div>
+              <div class="col-md-12">
+                <input type="text" value="<%= user?user.username : '' %>" name="username" placeholder="Username" />
+              </div>
+              <div class="col-md-12">
+                <input type="text"   value="<%= user?user.email : '' %>"name="email"  placeholder="Email" />
+              </div>
+              <div class="col-md-6">
+                <a href="/admin/users" class="btn btn--primary-1 w-100 type--uppercase">
+                  Back
+                </a>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn--primary type--uppercase" type="submit">
+                  Update
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<%- include ('../partials/_footer.ejs') %>

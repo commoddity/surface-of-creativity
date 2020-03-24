@@ -1,0 +1,44 @@
+<%- include ('./../partials/_header.ejs') %>
+
+<div class="main-container bg--dark">
+  <section class="feature-large   bg--dark text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 pb-5">
+          <h4>Users</h4>
+        </div>
+        <div class="col-md-12">
+          <% users.forEach(function(item){ %>
+          <div class="row justify-content-around">
+            <div class="col-md-4 text-left">
+              <Strong><%= item.first_name %></Strong>
+              <% if(item.isAdmin) {%>
+              <small class="badge badge-info p-2">Admin</small>
+              <% } %>
+            </div>
+            <div class="col-md-3">
+              <%= moment(item.createdAt).format('lll')  %>
+            </div>
+            <div class="col-md-3">
+              <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/admin/user/edit/<%=   `${item._id}` %>">
+                <span class="btn__text">
+                  Edit
+                </span>
+              </a>
+              <a class="btn btn--sm btn-outline-danger type--uppercase" href="/admin/user/delete/<%=   `${item._id}` %>">
+                <span class="btn__text">
+                  delete
+                </span>
+              </a>
+            </div>
+          </div>
+          <!--end of row-->
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</div>
+<%- include ('./../partials/_footer.ejs') %>

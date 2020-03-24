@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const moment = require('moment');
-const middleware = require('connect-ensure-login');
 const Event = require('../database/Schema').Event;
 const EventCategory = require('../database/Schema').EventCategory;
 
@@ -25,14 +23,8 @@ router.get('/',
     res.render('events/events', { pageTitle: `Events` });
   });
 
-router.get('/admin/list/asdf123',
-  async (req, res) => {
-    res.locals.events = await Event.find();
-    res.render('events/list-event', { pageTitle: `Events` });
-  });
 router.get('/create',
   async (req, res) => {
-
     res.locals.categories = await EventCategory.find();
     res.render('events/create-event', { event: null });
   });

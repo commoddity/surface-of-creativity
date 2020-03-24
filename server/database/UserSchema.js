@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  admin: Boolean,
+  isAdmin: Boolean,
   host: Boolean,
   active: Boolean,
   first_name: String,
@@ -12,7 +12,9 @@ const UserSchema = new Schema({
   email: { type: String, unique: true },
   password: String,
   location: String,
-  description: String
+  description: String,
+  createdAt: Date,
+  updatedAt: Date,
 });
 
 UserSchema.methods.generateHash = (password) => {

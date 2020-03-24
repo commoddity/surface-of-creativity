@@ -12,9 +12,9 @@
       </div>
       <div class="col-lg-4">
         <div class="bar__module">
-         <form action="/event/" method="GET">
-           <input type="search" placeholder="search live streams" name="query" />
-         </form>
+          <form action="/event/" method="GET">
+            <input type="search" placeholder="search live streams" name="query" />
+          </form>
         </div>
       </div>
       <!--end columns-->
@@ -85,13 +85,76 @@
               </div>
               <!--end dropdown container-->
             </li>
+            <% if(user && user.isAdmin){ %>
+            <li class="dropdown">
+              <span class="dropdown__trigger">
+                Admin
+              </span>
+              <div class="dropdown__container">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 dropdown__content dropdown__content--lg">
+                      <div class="pos-absolute col-lg-5 imagebg hidden-sm hidden-xs" data-overlay="4">
+                        <div class="background-image-holder">
+                          <img alt="background" src="/img/dropdown-1.jpg" />
+                        </div>
+                        <div class="container pos-vertical-center pl-5">
+                          <div class="row">
+                            <div class="col-lg-8 bg--dark">
+                              <!-- <img alt="Logo" src="/img/logo-light.png" class="image--xxs" /> -->
+                              <!--<span class="h3 color--white">The Surface of Creativity</span>-->
+                              <span class="h3 color--white">Discover live stream events
+                                that match your interests.</span>
+                            </div>
+                          </div>
+                          <!--end of row-->
+                        </div>
+                      </div>
+                      <div class="row justify-content-end">
+                        <div class="col-lg-6">
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <ul class="menu-vertical">
+
+                                <li>
+                                  <a href="/admin/events">
+                                    Events
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="/admin/categories">
+                                    Categories
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="/admin/users">
+                                    Users
+                                  </a>
+                                </li>
+
+                              </ul>
+                            </div>
+                          </div>
+                          <!--end of row-->
+                        </div>
+                        <!--end of col-->
+                      </div>
+                      <!--end of row-->
+                    </div>
+                    <!--end dropdown content-->
+                  </div>
+                </div>
+              </div>
+              <!--end dropdown container-->
+            </li>
+            <% } %>
           </ul>
         </div>
       </div>
       <!--end columns-->
       <div class="col-lg-3 text-right text-left-xs">
         <div class="bar__module">
-          <%# 
+          <%if(!user){%>
           <a class="btn btn--sm type--uppercase" href="/login">
             <span class="btn__text">
               Log In
@@ -102,7 +165,14 @@
               Register
             </span>
           </a>
-          %>
+          <%}else{%>
+          <span class="pr-3">Hey <strong><%= user.first_name %></strong>! </span>
+          <a class="btn btn--sm type--uppercase" href="/login/logout">
+            <span class="btn__text">
+              Log out
+            </span>
+          </a>
+          <%}%>
         </div>
         <!--end module-->
       </div>
