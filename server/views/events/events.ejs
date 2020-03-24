@@ -1,7 +1,7 @@
-<%- include ('./partials/_header.ejs') %>
+<%- include ('./../partials/_header.ejs') %>
 
 <div class="main-container bg--dark">
-  <section class="feature-large switchable bg--dark unpad">
+  <section class="feature-large switchable bg--dark pt-0">
     <div class="container">
       <h4>The Surface of Creativity</h4>
       <ol class="breadcrumbs">
@@ -12,6 +12,7 @@
           <a href="#">Music</a>
         </li>
       </ol>
+      <% if(events.length) {%>
       <% events.forEach(function(event){ %>
       <hr />
 
@@ -25,7 +26,7 @@
           <div class="col-md-12">
             <h1><Strong><%= event.title %></Strong></h1>
           </div>
-          
+
           <div class="heading-block">
             <h2><%= event.location %></h2>
             <h3><%= moment(event.date).format('ll') + ' - ' +  moment(event.time,'HH:mm').format('hh:mm a') %></h3>
@@ -34,8 +35,8 @@
             <a href="/event/category/<%= event.subcategory_id %>" x
               class="badge badge-info p-2"><%= event.subcategory_id %></a>
             <div class="pt-5">
-              
-              <a class="btn btn--primary type--uppercase"
+
+              <a class="btn btn--primary type--uppercase" target="_blank"
                 href="<%= event.link.indexOf('http') > -1 ? event.link : `http://${event.link}` %>">
                 <span class="btn__text">
                   Watch Live Stream
@@ -56,17 +57,37 @@
       <!--end of row-->
 
       <% }) %>
+      <% }else{ %>
+      <div class="row justify-content-around">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Nothing to stream on</h5>
+              <h1><span class=" typed-text typed-text--cursor color--primary"><%= search %></span></h1>
+
+              <h3>tell us what ou found of interesting on the web </h3>
+              <a class="btn btn--primary type--uppercase" href="/event/create">
+                <span class="btn__text">
+                  List your live stream
+                </span>
+              </a>
+               
+          </div>
+        </div>
+
+      </div>
     </div>
-    <!--end of container-->
-  </section>
 
+    <% } %>
+</div>
+<!--end of container-->
+</section>
 
-  <%- include ('./sections/_category-blocks.ejs') %>
-  <%# include ('./sections/_staff-picks.ejs') %>
-  <%# include ('./sections/_featured-cities.ejs') %>
+<%- include ('./../sections/_category-blocks.ejs') %>
+<%# include ('./../sections/_staff-picks.ejs') %>
+<%# include ('./../sections/_featured-cities.ejs') %>
 
 
 
 
 </div>
-<%- include ('./partials/_footer.ejs') %>
+<%- include ('./../partials/_footer.ejs') %>

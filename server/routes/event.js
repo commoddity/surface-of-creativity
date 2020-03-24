@@ -13,17 +13,17 @@ router.use((req, res, next) => {
 router.get('/all',
   async (req, res) => {
     res.locals.events = await Event.find({ status: 'Live' });
-    res.render('events', { pageTitle: `Events` });
+    res.render('events/events', { pageTitle: `Events` });
   });
 
 router.get('/admin/list/asdf123',
   async (req, res) => {
     res.locals.events = await Event.find();
-    res.render('list-event', { pageTitle: `Events` });
+    res.render('events/list-event', { pageTitle: `Events` });
   });
 router.get('/create',
   (req, res) => {
-    res.render('create-event', { event: null });
+    res.render('events/create-event', { event: null });
   });
 
 router.get('/delete/:id',
@@ -39,7 +39,7 @@ router.get('/edit/:id',
   async (req, res) => {
     try {
       const event = res.locals.event = await Event.findById(req.params.id)
-      res.render('create-event', { pageTitle: `Edit Event | ${event.title}` });
+      res.render('events/create-event', { pageTitle: `Edit Event | ${event.title}` });
     } catch (error) {
       console.log(`error`, error);
     }
@@ -47,9 +47,9 @@ router.get('/edit/:id',
 
 router.get('/category/:category_id', async (req, res) => {
   try {
-    const search = `${req.params.category_id}`;
+    const search = res.locals.search = `${req.params.category_id}`;
     res.locals.events = await Event.find({ status: 'Live', $or: [{ 'category_id': { '$regex': search, '$options': 'i' } }, { 'subcategory_id': { '$regex': search, '$options': 'i' } }] });
-    res.render('events', { pageTitle: `Events | ${req.params.category_id}` });
+    res.render('events/events', { pageTitle: `Events | ${req.params.category_id}` });
   } catch (error) {
     console.log(`error`, error);
   }
@@ -59,7 +59,7 @@ router.get('/:eventId', async (req, res) => {
   try {
     const eventId = req.params.eventId;
     const event = res.locals.event = await Event.findById(eventId);
-    res.render('event', { pageTitle: `Event | ${event.title}` });
+    res.render('events/event', { pageTitle: `Event | ${event.title}` });
   } catch (error) {
     console.log(`error`, error);
   }
