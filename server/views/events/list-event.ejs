@@ -8,29 +8,37 @@
           <h4>Events</h4>
           <% events.forEach(function(event){ %>
           <div class="row justify-content-around">
-            <div class="col-md-4">
-              <Strong><%= event.title %></Strong>
+            <div class="col-md-6 text-left">
+              <% if(event.status=='Live') {%>
               <small class="badge badge-info p-2"><%= event.status %></small>
+              <% } %>
+              <% if(event.status=='Review'){ %>
+              <small class="badge badge-warning p-2"><%= event.status %></small>
+              <% } %>
+              <Strong><%= event.title %></Strong>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <%= moment(event.date).format('ll') + ' - ' +  moment(event.time,'HH:mm').format('hh:mm a') %>
             </div>
-            <div class="col-md-4">
-              <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/<%=   `${event._id}` %>">
-                <span class="btn__text">
-                  Details
-                </span>
-              </a>
-              <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/edit/<%=   `${event._id}` %>">
-                <span class="btn__text">
-                  Edit
-                </span>
-              </a>
-              <a class="btn btn--sm btn-outline-danger type--uppercase" href="/event/delete/<%=   `${event._id}` %>">
-                <span class="btn__text">
-                  delete
-                </span>
-              </a>
+            <div class="col-md-3">
+              <div class="btn btn-group btn--sm">
+
+                <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/<%=   `${event._id}` %>">
+                  <span class="btn__text">
+                    Details
+                  </span>
+                </a>
+                <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/edit/<%=   `${event._id}` %>">
+                  <span class="btn__text">
+                    Edit
+                  </span>
+                </a>
+                <a class="btn btn--sm btn-outline-danger type--uppercase" href="/event/delete/<%=   `${event._id}` %>">
+                  <span class="btn__text">
+                    delete
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
           <!--end of row-->

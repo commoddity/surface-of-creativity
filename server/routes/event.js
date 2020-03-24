@@ -5,9 +5,23 @@ const middleware = require('connect-ensure-login');
 const Event = require('../database/Schema').Event;
 const EventCategory = require('../database/Schema').EventCategory;
 
-router.get('/all',
+router.get('/',
   async (req, res) => {
-    res.locals.events = await Event.find({ status: 'Live' });
+    const search = { status: 'Live' };
+    const q = res.locals.search = req.query.query || '';
+    if (q !== 'all' &&
+      q !== '') {
+      search.$or = [
+        { 'title': { '$regex': q, '$options': 'i' } },
+        { 'category_id': { '$regex': q, '$options': 'i' } },
+        { 'subcategory_id': { '$regex': q, '$options': 'i' } },
+        { 'description': { '$regex': q, '$options': 'i' } },
+        { 'host_name': { '$regex': q, '$options': 'i' } },
+        { 'host_description': { '$regex': q, '$options': 'i' } },
+        { 'location': { '$regex': q, '$options': 'i' } },
+      ]
+    }
+    res.locals.events = await Event.find(search);
     res.render('events/events', { pageTitle: `Events` });
   });
 

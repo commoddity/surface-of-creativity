@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EventSchema = new Schema({
-  admin: Boolean,
   host_id: Number,
   host_name: String,
   host_description: String,

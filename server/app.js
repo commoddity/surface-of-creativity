@@ -9,7 +9,8 @@ const path = require('path');
 const flash = require('connect-flash');
 const passport = require('./auth/passport');
 const moment = require('moment');
-const EventCategory = require('./database/Schema').EventCategory;
+const { EventCategory, Event } = require('./database/Schema');
+
 
 const mongoose = require('mongoose');
 
@@ -69,6 +70,11 @@ app.use(async (req, res, next) => {
 // Register app routes
 app.use('/category', require('./routes/category'));
 app.use('/event', require('./routes/event'));
+app.use('/events', async (req, res) => {
+  res.locals.search = '';
+  res.locals.events = await Event.find({ status: "Live" });
+  res.render('events/events', { pageTitle: `Events` });
+});
 app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));
 
