@@ -16,10 +16,15 @@ router.get(
   }
 );
 
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  res.redirect('/');
+});
+
 router.post(
   '/',
   passport.authenticate('localLogin', {
-    successRedirect: '/',
+    successReturnToOrRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
   })

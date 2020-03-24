@@ -39,7 +39,7 @@ passport.use(
             let user = new User();
             user.first_name = req.body.first_name;
             user.last_name = req.body.last_name;
-            user.email = email;
+            user.email = req.body.email;
             user.password = user.generateHash(password);
             user.username = req.body.username;
             user.save((err) => {
@@ -75,7 +75,6 @@ passport.use(
             false,
             req.flash('password', 'Oops! Wrong password.')
           );
-
         return done(null, user);
       });
     }

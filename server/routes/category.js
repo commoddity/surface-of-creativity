@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const moment = require('moment');
-const middleware = require('connect-ensure-login');
 const Category = require('../database/Schema').EventCategory;
 
 router.get('/all',
@@ -10,11 +8,6 @@ router.get('/all',
     res.render('categories/categories', { pageTitle: `Categories` });
   });
 
-router.get('/admin/list/asdf123',
-  async (req, res) => {
-    res.locals.categories = await Category.find();
-    res.render('categories/list-categories', { pageTitle: `Categories` });
-  });
 router.get('/create',
   (req, res) => {
     res.render('categories/create-category', { category: null });
