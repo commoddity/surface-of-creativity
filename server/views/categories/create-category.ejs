@@ -16,18 +16,18 @@
               <div class=" col-md-12 form-group">
                 <select class="" name="showOnBlocksSection" id="showOnBlocksSection">
                   <option value="false">- Show on Category Blocks Section? -</option>
-                  <option value="true" <%= category ? (category.showOnBlocksSection == 'true' ? 'selected' : '') : '' %>>Show
+                  <option value="true" <%= category ? (category.showOnBlocksSection == true ? 'selected' : '') : '' %>>Show
                   </option>
-                  <option value="false" <%= category ? (category.showOnBlocksSection == 'false' ? 'selected' : '') : '' %>>No
+                  <option value="false" <%= category ? (category.showOnBlocksSection == false ? 'selected' : '') : '' %>>No
                   </option>
                 </select>
               </div>
               <div class=" col-md-12 form-group">
                 <select class="" name="showOnNavbar" id="showOnNavbar">
                   <option value="false">- Show on Navbar? -</option>
-                  <option value="true" <%= category ? (category.showOnNavbar == 'true' ? 'selected' : '') : '' %>>Show
+                  <option value="true" <%= category ? (category.showOnNavbar == true ? 'selected' : '') : '' %>>Show
                   </option>
-                  <option value="false" <%= category ? (category.showOnNavbar == 'false' ? 'selected' : '') : '' %>>No
+                  <option value="false" <%= category ? (category.showOnNavbar == false ? 'selected' : '') : '' %>>No
                   </option>
                 </select>
               </div>
@@ -35,9 +35,9 @@
                 <input type="text" name="name" value="<%= category?category.name : '' %>" placeholder="Category Name" />
               </div>
 
-              <div class="col-md-12">
+              <!-- <div class="col-md-12">
                 <input type="file" name="icon" id="icon">
-              </div>
+              </div> -->
 
 
               <div class="col-md-12">
