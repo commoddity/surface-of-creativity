@@ -44,7 +44,7 @@
                               <!-- <img alt="Logo" src="/img/logo-light.png" class="image--xxs" /> -->
                               <!--<span class="h3 color--white">The Surface of Creativity</span>-->
                               <span class="h3 color--white">Discover live stream events
-that match your interests.</span>
+                                that match your interests.</span>
                             </div>
                           </div>
                           <!--end of row-->
@@ -56,41 +56,20 @@ that match your interests.</span>
                             <div class="col-lg-4">
                               <h5>Event Categories</h5>
                               <ul class="menu-vertical">
+
                                 <li>
-                                  <a href="/event/category/music">
-                                    Music
+                                  <a href="/event/all">
+                                    All
                                   </a>
                                 </li>
+                                <% navbarCategories.forEach(function(item){ %>
                                 <li>
-                                  <a href="/event/category/education">
-                                    Education
+                                  <a href="/event/category/<%= item.name %>">
+                                    <%= item.name %>
                                   </a>
                                 </li>
-                                <li>
-                                  <a href="/event/category/fitness">
-                                    Fitness
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="/event/category/wellness">
-                                    Wellness
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="/event/category/cooking">
-                                    Cooking
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="/event/category/games">
-                                    Games
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="/event/category/peformance">
-                                    Performance
-                                  </a>
-                                </li>
+                                <% }) %>
+
                               </ul>
                             </div>
                           </div>

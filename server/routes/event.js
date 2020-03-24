@@ -3,12 +3,7 @@ const router = express.Router();
 const moment = require('moment');
 const middleware = require('connect-ensure-login');
 const Event = require('../database/Schema').Event;
-
-router.use((req, res, next) => {
-  res.locals.moment = moment;
-  res.locals.user = req.user;
-  next();
-});
+const EventCategory = require('../database/Schema').EventCategory;
 
 router.get('/all',
   async (req, res) => {
@@ -22,7 +17,9 @@ router.get('/admin/list/asdf123',
     res.render('events/list-event', { pageTitle: `Events` });
   });
 router.get('/create',
-  (req, res) => {
+  async (req, res) => {
+
+    res.locals.categories = await EventCategory.find();
     res.render('events/create-event', { event: null });
   });
 
@@ -38,6 +35,7 @@ router.get('/delete/:id',
 router.get('/edit/:id',
   async (req, res) => {
     try {
+      res.locals.categories = await EventCategory.find();
       const event = res.locals.event = await Event.findById(req.params.id)
       res.render('events/create-event', { pageTitle: `Edit Event | ${event.title}` });
     } catch (error) {

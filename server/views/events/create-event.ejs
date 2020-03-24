@@ -30,30 +30,20 @@
               </div>
               <div class=" col-md-12 form-group">
                 <select class="" name="category_id" id="category_id">
-                  <option>Select Event category</option>
-                  <option <%= event ? (event.category_id == 'Music' ? 'selected' : '') : '' %>>Music</option>
-                  <option <%= event ? (event.category_id == 'Education' ? 'selected' : '') : '' %>>Education</option>
-                  <option <%= event ? (event.category_id == 'Entertainment' ? 'selected' : '') : '' %>>Entertainment
+                  <option value="">- Select Event category - </option>
+                  <% categories.forEach(function(item){ %>
+                  <option <%= event ? (event.category_id == item.name ? 'selected' : '') : '' %>><%= item.name %>
                   </option>
-                  <option <%= event ? (event.category_id == 'Fitness' ? 'selected' : '') : '' %>>Fitness</option>
-                  <option <%= event ? (event.category_id == 'Cooking' ? 'selected' : '') : '' %>>Cooking</option>
-                  <option <%= event ? (event.category_id == 'Games' ? 'selected' : '') : '' %>>Games</option>
-                  <option <%= event ? (event.category_id == 'Wellness' ? 'selected' : '') : '' %>>Wellness</option>
-                  <option <%= event ? (event.category_id == 'Peformance' ? 'selected' : '') : '' %>>Peformance</option>
+                  <% } )%>
                 </select>
               </div>
               <div class=" col-md-12 form-group">
                 <select class=" " name="subcategory_id" id="subcategory_id">
-                  <option>Select Event Sub Category</option>
-                  <option <%= event ? (event.subcategory_id == 'Music' ? 'selected' : '') : '' %>>Music</option>
-                  <option <%= event ? (event.subcategory_id == 'Education' ? 'selected' : '') : '' %>>Education</option>
-                  <option <%= event ? (event.subcategory_id == 'Entertainment' ? 'selected' : '') : '' %>>Entertainment
+                  <option value="">- Select Event Sub category - </option>
+                  <% categories.forEach(function(item){ %>
+                  <option <%= event ? (event.subcategory_id == item.name ? 'selected' : '') : '' %>><%= item.name %>
                   </option>
-                  <option <%= event ? (event.subcategory_id == 'Fitness' ? 'selected' : '') : '' %>>Fitness</option>
-                  <option <%= event ? (event.subcategory_id == 'Cooking' ? 'selected' : '') : '' %>>Cooking</option>
-                  <option <%= event ? (event.subcategory_id == 'Games' ? 'selected' : '') : '' %>>Games</option>
-                  <option <%= event ? (event.subcategory_id == 'Wellness' ? 'selected' : '') : '' %>>Wellness</option>
-                  <option <%= event ? (event.subcategory_id == 'Peformance' ? 'selected' : '') : '' %>>Peformance</option>
+                  <% } )%>
                 </select>
               </div>
               <div class="col-md-12 form-group">
@@ -66,7 +56,7 @@
               <div class="col-md-12">
                 <label for="date">Date</label>
                 <input type="date" name="date" value="<%= event? moment(event.date).format('YYYY-MM-DD') : '' %>"
-                placeholder="Date" />
+                  placeholder="Date" />
               </div>
               <div class="col-md-12">
                 <label for="time">Time</label>

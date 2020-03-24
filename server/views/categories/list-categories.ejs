@@ -1,0 +1,55 @@
+<%- include ('./../partials/_header.ejs') %>
+
+<div class="main-container bg--dark">
+  <section class="feature-large   bg--dark text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 pb-5">
+          <a class="btn btn--sm btn--primary type--uppercase float-right" href="/category/create">
+            <span class="btn__text">
+              Add Category
+            </span>
+          </a>
+          <h4>Categories</h4>
+        </div>
+        <div class="col-md-12">
+          <% categories.forEach(function(item){ %>
+          <div class="row justify-content-around">
+            <div class="col-md-3">
+              <Strong><%= item.name %></Strong>
+            </div>
+            <div class="col-md-3">
+              <% if(item.showOnBlocksSection) {%>
+              <small class="badge badge-info p-2">Show on Navbar</small>
+              <% } %>
+              <% if(item.showOnBlocksSection){ %>
+              <small class="badge badge-warning p-2">Show on Blocks Section</small>
+              <% } %>
+
+            </div>
+            <div class="col-md-3">
+              <%= moment(item.createdAt).format('lll')  %>
+            </div>
+            <div class="col-md-3">
+              <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/category/edit/<%=   `${item._id}` %>">
+                <span class="btn__text">
+                  Edit
+                </span>
+              </a>
+              <a class="btn btn--sm btn-outline-danger type--uppercase" href="/category/delete/<%=   `${item._id}` %>">
+                <span class="btn__text">
+                  delete
+                </span>
+              </a>
+            </div>
+          </div>
+          <!--end of row-->
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</div>
+<%- include ('./../partials/_footer.ejs') %>

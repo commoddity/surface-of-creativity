@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const flash = require('connect-flash');
 const passport = require('./auth/passport');
+const moment = require('moment');
+const EventCategory = require('./database/Schema').EventCategory;
 
 const mongoose = require('mongoose');
 
@@ -21,7 +23,7 @@ mongoose.connect(`${process.env.MONGO_DB_NAME}`, {
   useNewUrlParser: true,
   useFindAndModify: true,
   useCreateIndex: true,
-  useUnifiedTopology: true, 
+  useUnifiedTopology: true,
 });
 mongoose.set('debug', true);
 const db = mongoose.connection;
@@ -55,7 +57,17 @@ app.use(
   })
 );
 
+app.use(async (req, res, next) => {
+  res.locals.moment = moment;
+  res.locals.user = req.user;
+  res.locals.navbarCategories = await EventCategory.find({ showOnNavbar: true });
+  res.locals.blocksSectionCategories = await EventCategory.find({ showOnBlocksSection: true });
+  next();
+});
+
+
 // Register app routes
+app.use('/category', require('./routes/category'));
 app.use('/event', require('./routes/event'));
 app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));

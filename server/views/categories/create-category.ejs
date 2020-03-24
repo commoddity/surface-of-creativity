@@ -1,0 +1,61 @@
+<%- include ('./../partials/_header.ejs') %>
+
+<div class="main-container bg--dark">
+  <section class="feature-large   bg--dark text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7 col-lg-5">
+          <h4>The Surface of Creativity</h4>
+          <h2><b>Add a Category</b></h2>
+          <p class="lead">
+            This Category will appear on the navbar and on the options when creating an event
+          </p>
+          <form action="/category/create/<%= category?category._id : '' %>" method="POST">
+            <div class="row">
+
+              <div class=" col-md-12 form-group">
+                <select class="" name="showOnBlocksSection" id="showOnBlocksSection">
+                  <option value="false">- Show on Category Blocks Section? -</option>
+                  <option value="true" <%= category ? (category.showOnBlocksSection == 'true' ? 'selected' : '') : '' %>>Show
+                  </option>
+                  <option value="false" <%= category ? (category.showOnBlocksSection == 'false' ? 'selected' : '') : '' %>>No
+                  </option>
+                </select>
+              </div>
+              <div class=" col-md-12 form-group">
+                <select class="" name="showOnNavbar" id="showOnNavbar">
+                  <option value="false">- Show on Navbar? -</option>
+                  <option value="true" <%= category ? (category.showOnNavbar == 'true' ? 'selected' : '') : '' %>>Show
+                  </option>
+                  <option value="false" <%= category ? (category.showOnNavbar == 'false' ? 'selected' : '') : '' %>>No
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <input type="text" name="name" value="<%= category?category.name : '' %>" placeholder="Category Name" />
+              </div>
+
+              <div class="col-md-12">
+                <input type="file" name="icon" id="icon">
+              </div>
+
+
+              <div class="col-md-12">
+                <button class="btn btn--primary type--uppercase" type="submit">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+          <span class="type--fine-print block">Dont have an account yet?
+            <a href="page-accounts-create-1.html">Create account</a></span>
+          <span class="type--fine-print block">Forgot your username or password?
+            <a href="page-accounts-recover.html">Recover account</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</div>
+<%- include ('./../partials/_footer.ejs') %>
