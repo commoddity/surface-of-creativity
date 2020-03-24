@@ -33,7 +33,7 @@ router.get('/edit/:id',
   async (req, res) => {
     try {
       const category = res.locals.category = await Category.findById(req.params.id)
-      res.render('categories/create-category', { pageTitle: `Edit Category | ${category.title}` });
+      res.render('categories/create-category', { pageTitle: `Edit Category | ${category.name}` });
     } catch (error) {
       console.log(`error`, error);
     }
