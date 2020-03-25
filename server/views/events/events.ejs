@@ -13,6 +13,7 @@
         </li>
       </ol>
       <% if(events.length) {%>
+      <% if(!user){ events = events.slice(0,1) }%>
       <% events.forEach(function(event){ %>
       <hr />
 
@@ -66,8 +67,10 @@
           <div class="col-md-12">
             <h2>Nothing to stream on</h5>
               <h1><span class=" typed-text typed-text--cursor color--primary"><%= search %></span></h1>
-
-              <h3>tell us what ou found of interesting on the web </h3>
+              <p class="lead">
+                Hosting a live stream event? <br />Know a great live stream
+                event? <br />List it here. Together we can built an epic list!
+              </p>
               <a class="btn btn--primary type--uppercase" href="/event/create">
                 <span class="btn__text">
                   List your live stream
@@ -78,12 +81,17 @@
         </div>
 
       </div>
+      <% } %>
     </div>
 
+    <% if(!user){ %>
+    <%- include ('./../sections/_create-account.ejs') %>
     <% } %>
 </div>
 <!--end of container-->
 </section>
+
+
 
 <%- include ('./../sections/_category-blocks.ejs') %>
 <%# include ('./../sections/_staff-picks.ejs') %>

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../database/Schema').Event;
-const EventCategory = require('../database/Schema').EventCategory;
+const { EventCategory, EventSubCategory } = require('../database/Schema');
 
 router.get('/',
   async (req, res) => {
@@ -30,6 +30,7 @@ router.get('/',
 router.get('/create',
   async (req, res) => {
     try {
+      res.locals.subCategories = await EventSubCategory.find();
       res.locals.categories = await EventCategory.find();
       res.render('events/create-event', { event: null });
     } catch (error) {

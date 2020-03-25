@@ -2,15 +2,19 @@ const express = require('express');
 const router = express.Router();
 const connectEnsureLogin = require('connect-ensure-login');
 const passport = require('passport');
-const { EventCategory, Event, User } = require('../database/Schema');
+const { EventCategory, EventSubCategory, Event, User } = require('../database/Schema');
 
-router.get('/events', 
+router.get('/events',
   async (req, res) => {
-    res.locals.events = await Event.find();
-    res.render('events/list-event', { pageTitle: `Events` });
+    try {
+      res.locals.events = await Event.find();
+      res.render('events/list-event', { pageTitle: `Events` });
+    } catch (error) {
+      console.log(`error`, error);
+    }
   });
 
-  router.get('/event/delete/:id',
+router.get('/event/delete/:id',
   async (req, res) => {
     try {
       await Event.deleteOne({ _id: req.params.id })
@@ -22,7 +26,8 @@ router.get('/events',
 router.get('/event/edit/:id',
   async (req, res) => {
     try {
-      res.locals.categories = await EventCategory.find();
+      var subCategories = res.locals.subCategories = await EventSubCategory.find();
+      var categories = res.locals.categories = await EventCategory.find();
       const event = res.locals.event = await Event.findById(req.params.id)
       res.render('events/create-event', { pageTitle: `Edit Event | ${event.title}` });
     } catch (error) {
@@ -32,15 +37,33 @@ router.get('/event/edit/:id',
 // ==================== categories ==============================
 router.get('/categories',
   async (req, res) => {
-    res.locals.categories = await EventCategory.find();
-    res.render('categories/list-categories', { pageTitle: `Categories` });
+    try {
+      res.locals.categories = await EventCategory.find();
+      res.render('categories/list-categories', { pageTitle: `Categories` });
+    } catch (error) {
+      console.log(`error`, error);
+    }
+  });
+// ==================== SUB categories ==============================
+router.get('/sub-categories',
+  async (req, res) => {
+    try {
+      res.locals.categories = await EventSubCategory.find().populate(`eventCategories`);
+      res.render('sub-categories/list-categories', { pageTitle: `Sub Categories` });
+    } catch (error) {
+      console.log(`error`, error);
+    }
   });
 
 // ==================== USERS ==============================
 router.get('/users',
   async (req, res) => {
-    res.locals.users = await User.find();
-    res.render('users/list-users', { pageTitle: `Users` });
+    try {
+      res.locals.users = await User.find();
+      res.render('users/list-users', { pageTitle: `Users` });
+    } catch (error) {
+      console.log(`error`, error);
+    }
   });
 
 router.get('/user/delete/:id',

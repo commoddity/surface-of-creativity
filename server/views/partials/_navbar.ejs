@@ -54,7 +54,7 @@
                         <div class="col-lg-6">
                           <div class="row">
                             <div class="col-lg-4">
-                              <h5>Event Categories</h5>
+                              <h5></h5>
                               <ul class="menu-vertical">
 
                                 <li>
@@ -70,6 +70,18 @@
                                 </li>
                                 <% }) %>
 
+                              </ul>
+                            </div>
+                            <div class="col-lg-4">
+                              <h5></h5>
+                              <ul class="menu-vertical">
+                                <% navbarSubCategories.forEach(function(item){ %>
+                                <li>
+                                  <a href="/event/category/<%= item.name %>">
+                                    <%= item.name %>
+                                  </a>
+                                </li>
+                                <% }) %>
                               </ul>
                             </div>
                           </div>
@@ -115,7 +127,6 @@
                           <div class="row">
                             <div class="col-lg-4">
                               <ul class="menu-vertical">
-
                                 <li>
                                   <a href="/admin/events">
                                     Events
@@ -124,6 +135,11 @@
                                 <li>
                                   <a href="/admin/categories">
                                     Categories
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="/admin/sub-categories">
+                                    Sub Categories
                                   </a>
                                 </li>
                                 <li>
