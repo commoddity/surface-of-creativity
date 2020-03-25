@@ -23,17 +23,19 @@
             <div class="col-md-3">
               <div class="btn btn-group btn--sm">
 
-                <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/<%=   `${event._id}` %>">
+                <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/<%=   `${event.key}` %>">
                   <span class="btn__text">
                     Details
                   </span>
                 </a>
-                <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/event/edit/<%=   `${event._id}` %>">
+                <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/admin/event/edit/<%=   `${event._id}` %>">
                   <span class="btn__text">
                     Edit
                   </span>
                 </a>
-                <a class="btn btn--sm btn-outline-danger type--uppercase" href="/event/delete/<%=   `${event._id}` %>">
+                <a class="btn btn--sm btn-outline-danger type--uppercase"
+                  onclick="return confirm('Are you sure you want to delete this item?');"
+                  href="/admin/event/delete/<%=   `${event._id}` %>">
                   <span class="btn__text">
                     delete
                   </span>

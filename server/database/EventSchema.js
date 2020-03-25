@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('../util/slugify');
 const Schema = mongoose.Schema;
 
 const EventSchema = new Schema({
@@ -7,6 +8,7 @@ const EventSchema = new Schema({
   host_description: String,
   category_id: String,
   subcategory_id: String,
+  key: String,
   title: String,
   link: String,
   description: String,
@@ -21,5 +23,10 @@ const EventSchema = new Schema({
     approvedBy: String,
   }
 });
+
+EventSchema.pre('save', function (next) {
+  this.key = slugify(this.title);
+  next();
+})
 
 module.exports = EventSchema;

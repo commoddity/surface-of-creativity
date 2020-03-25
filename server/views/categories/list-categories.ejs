@@ -19,10 +19,10 @@
               <Strong><%= item.name %></Strong>
             </div>
             <div class="col-md-3">
-              <% if(item.showOnBlocksSection) {%>
+              <% if(item.showOnNavbar==true) {%>
               <small class="badge badge-info p-2">Show on Navbar</small>
               <% } %>
-              <% if(item.showOnBlocksSection){ %>
+              <% if(item.showOnBlocksSection==true){ %>
               <small class="badge badge-warning p-2">Show on Blocks Section</small>
               <% } %>
 
@@ -31,12 +31,15 @@
               <%= moment(item.createdAt).format('lll')  %>
             </div>
             <div class="col-md-3">
-              <a class="btn btn--sm btn-outline-secondary type--uppercase" href="/category/edit/<%=   `${item._id}` %>">
+              <a class="btn btn--sm btn-outline-secondary type--uppercase"
+                href="/admin/category/edit/<%=   `${item._id}` %>">
                 <span class="btn__text">
                   Edit
                 </span>
               </a>
-              <a class="btn btn--sm btn-outline-danger type--uppercase" href="/category/delete/<%=   `${item._id}` %>">
+              <a class="btn btn--sm btn-outline-danger type--uppercase"
+                onclick="return confirm('Are you sure you want to delete this item?');"
+                href="/admin/category/delete/<%=   `${item._id}` %>">
                 <span class="btn__text">
                   delete
                 </span>

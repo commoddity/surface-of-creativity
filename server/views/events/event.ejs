@@ -38,7 +38,8 @@
             <h2><%= event.location %></h2>
             <h3><%= moment(event.date).format('ll') + ' - ' +  moment(event.time,'HH:mm').format('hh:mm a') %></h3>
             <a class="btn btn--primary type--uppercase" target="_blank"
-              href="<%= event.link.indexOf('http') > -1 ? event.link : `http://${event.link}` %>">
+              href="<%= event.link.indexOf('http') > -1 ? event.link : `http://${event.link}` %>"
+              >
               <span class="btn__text">
                 Watch Live Stream
               </span>

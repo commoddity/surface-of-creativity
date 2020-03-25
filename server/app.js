@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const session = require('express-session');
-const fileStore = require('session-file-store')(session);
+// const fileStore = require('session-file-store')(session);
 const connectEnsureLogin = require('connect-ensure-login');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -76,7 +76,7 @@ app.use(async (req, res, next) => {
 
 
 // Register app routes
-app.use('/category', require('./routes/category'));
+app.use('/admin/category', require('./routes/category'));
 app.use('/event', require('./routes/event'));
 app.use('/events', async (req, res) => {
   res.locals.search = '';

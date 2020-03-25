@@ -10,7 +10,7 @@
           <p class="lead">
             This Category will appear on the navbar and on the options when creating an event
           </p>
-          <form action="/category/create/<%= category?category._id : '' %>" method="POST">
+          <form action="/admin/category/create/<%= category?category._id : '' %>" method="POST">
             <div class="row">
 
               <div class=" col-md-12 form-group">
@@ -33,6 +33,7 @@
               </div>
               <div class="col-md-12">
                 <input type="text" name="name" value="<%= category?category.name : '' %>" placeholder="Category Name" />
+                <input type="hidden" name="originalName" value="<%= category?category.name : '' %>"/>
               </div>
 
               <!-- <div class="col-md-12">

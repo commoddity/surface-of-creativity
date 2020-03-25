@@ -4,13 +4,31 @@ const connectEnsureLogin = require('connect-ensure-login');
 const passport = require('passport');
 const { EventCategory, Event, User } = require('../database/Schema');
 
-router.get('/events',
-  connectEnsureLogin.ensureLoggedIn(),
+router.get('/events', 
   async (req, res) => {
     res.locals.events = await Event.find();
     res.render('events/list-event', { pageTitle: `Events` });
   });
 
+  router.get('/event/delete/:id',
+  async (req, res) => {
+    try {
+      await Event.deleteOne({ _id: req.params.id })
+      res.redirect('/admin/events');
+    } catch (error) {
+      console.log(`error`, error);
+    }
+  });
+router.get('/event/edit/:id',
+  async (req, res) => {
+    try {
+      res.locals.categories = await EventCategory.find();
+      const event = res.locals.event = await Event.findById(req.params.id)
+      res.render('events/create-event', { pageTitle: `Edit Event | ${event.title}` });
+    } catch (error) {
+      console.log(`error`, error);
+    }
+  });
 // ==================== categories ==============================
 router.get('/categories',
   async (req, res) => {

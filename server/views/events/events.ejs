@@ -24,7 +24,10 @@
         <% } %>
         <div class="<%= event.image?'col-lg-5 col-md-6':'col-lg-12' %>">
           <div class="col-md-12">
-            <h1><Strong><%= event.title %></Strong></h1>
+            <a href="/event/<%=   `${event.key}` %>">
+              <h1><Strong><%= event.title %></Strong></h1>
+            </a>
+
           </div>
 
           <div class="heading-block">
@@ -42,7 +45,7 @@
                   Watch Live Stream
                 </span>
               </a>
-              <a class="btn btn-outline-secondary type--uppercase" href="/event/<%=   `${event._id}` %>">
+              <a class="btn btn-outline-secondary type--uppercase" href="/event/<%=   `${event.key}` %>">
                 <span class="btn__text">
                   Details
                 </span>
@@ -70,7 +73,7 @@
                   List your live stream
                 </span>
               </a>
-               
+
           </div>
         </div>
 

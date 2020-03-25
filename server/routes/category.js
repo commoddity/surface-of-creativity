@@ -1,12 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Category = require('../database/Schema').EventCategory;
-
-router.get('/all',
-  async (req, res) => {
-    res.locals.categories = await Category.find({ status: 'Live' });
-    res.render('categories/categories', { pageTitle: `Categories` });
-  });
+const { EventCategory, Event } = require('../database/Schema');
 
 router.get('/create',
   (req, res) => {
@@ -16,8 +10,8 @@ router.get('/create',
 router.get('/delete/:id',
   async (req, res) => {
     try {
-      await Category.deleteOne({ _id: req.params.id })
-      res.redirect('/category/admin/list/asdf123');
+      await EventCategory.deleteOne({ _id: req.params.id })
+      res.redirect('/admin/categories');
     } catch (error) {
       console.log(`error`, error);
     }
@@ -25,43 +19,30 @@ router.get('/delete/:id',
 router.get('/edit/:id',
   async (req, res) => {
     try {
-      const category = res.locals.category = await Category.findById(req.params.id)
+      const category = res.locals.category = await EventCategory.findById(req.params.id)
       res.render('categories/create-category', { pageTitle: `Edit Category | ${category.name}` });
     } catch (error) {
       console.log(`error`, error);
     }
   });
 
-router.get('/category/:category_id', async (req, res) => {
-  try {
-    const search = res.locals.search = `${req.params.category_id}`;
-    res.locals.categories = await Category.find({ status: 'Live', $or: [{ 'category_id': { '$regex': search, '$options': 'i' } }, { 'subcategory_id': { '$regex': search, '$options': 'i' } }] });
-    res.render('categories/categories', { pageTitle: `Categories | ${req.params.category_id}` });
-  } catch (error) {
-    console.log(`error`, error);
-  }
-});
-
-router.get('/:categoryId', async (req, res) => {
-  try {
-    const categoryId = req.params.categoryId;
-    const category = res.locals.category = await Category.findById(categoryId);
-    res.render('categories/category', { pageTitle: `Category | ${category.title}` });
-  } catch (error) {
-    console.log(`error`, error);
-  }
-});
 
 router.post('/create/:categoryId?', async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
     if (categoryId) {
-      await Category.updateOne({ _id: categoryId }, req.body);
+      await EventCategory.updateOne({ _id: categoryId }, req.body);
+      if (req.body.originalName != req.body.name) {
+        await Event.updateMany({ category_id: req.body.originalName }, { category_id: req.body.name });
+      }
     } else {
       req.body.status = 'Review';
-      var category = await new Category(req.body).save();
+      var category = await new EventCategory(req.body).save();
     }
-    res.redirect(`/category/admin/list/asdf123`);
+
+
+
+    res.redirect(`/admin/categories`);
   } catch (error) {
     console.log(`error`, error);
   }
