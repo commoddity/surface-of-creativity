@@ -23,25 +23,29 @@
               </div>
               <% } %>
               <div class="col-md-12">
-                <input type="text" name="title" value="<%= event?event.title : '' %>" placeholder="Event Name" />
+                <input type="text" name="title" required value="<%= event?event.title : '' %>" placeholder="Event Name" />
               </div>
               <div class="col-md-12">
-                <input type="text" name="link" value="<%= event?event.link : '' %>" placeholder="Event Link" />
+                <input type="text" name="link" required value="<%= event?event.link : '' %>" placeholder="Event Link" />
               </div>
               <div class=" col-md-12 form-group">
-                <select class="" name="category_id" id="category_id">
-                  <option value="">- Select Event category - </option>
+                <select class="" required name="category_id" id="category_id">
+                  <option value="">- select a category - </option>
                   <% categories.forEach(function(item){ %>
-                  <option <%= event ? (event.category_id == item.name ? 'selected' : '') : '' %>><%= item.name %>
+                  <option data-id="<%= item._id %>"
+                    <%= event ? (event.category_id == item.name ? 'selected' : '') : '' %>>
+                    <%= item.name %>
                   </option>
                   <% } )%>
                 </select>
               </div>
               <div class=" col-md-12 form-group">
                 <select class=" " name="subcategory_id" id="subcategory_id">
-                  <option value="">- Select Event Sub category - </option>
-                  <% categories.forEach(function(item){ %>
-                  <option <%= event ? (event.subcategory_id == item.name ? 'selected' : '') : '' %>><%= item.name %>
+                  <option value="">- select a sub category - </option>
+                  <% subCategories.forEach(function(item){ %>
+                  <option data-categories="<%= item.eventCategories.join(', ') %>"
+                    <%= event ? (event.subcategory_id == item.name ? 'selected' : '') : '' %>>
+                    <%= item.name %>
                   </option>
                   <% } )%>
                 </select>
@@ -85,4 +89,24 @@
 
 
 </div>
+<script>
+  $(function () {
+    $('#category_id').change(function () {
+      var id = $(this).children("option:selected").data('id');
+      $('#subcategory_id').val('');
+      $('#subcategory_id').find('option').each((i, element) => {
+        var cats = $(element).data('categories');
+        if (cats) {
+          if (cats.indexOf(id) > -1) {
+            $(element).show();
+          } else {
+            $(element).hide();
+          }
+        }
+      });
+
+    })
+  });
+
+</script>
 <%- include ('./../partials/_footer.ejs') %>

@@ -6,21 +6,23 @@
       <div class="row">
         <div class="col-md-7 col-lg-5">
           <h4>The Surface of Creativity</h4>
-          <h2><b>Add a Category</b></h2>
+          <h2><b>Add a Sub Category</b></h2>
           <p class="lead">
-            This Category will appear on the navbar and on the options when creating an event
+            This Sub Categories will appear on the navbar and on the options when creating an event
           </p>
-          <form action="/admin/category/create/<%= category?category._id : '' %>" method="POST">
+          <form action="/admin/sub-category/create/<%= category?category._id : '' %>" method="POST">
             <div class="row">
 
               <div class=" col-md-12 form-group">
-                <select class="" name="showOnBlocksSection" id="showOnBlocksSection">
-                  <option value="false">- Show on Category Blocks Section? -</option>
-                  <option value="true" <%= category ? (category.showOnBlocksSection == true ? 'selected' : '') : '' %>>Show on Navbar
-                  </option>
-                  <option value="false" <%= category ? (category.showOnBlocksSection == false ? 'selected' : '') : '' %>>Don`t show on Navbar
-                  </option>
-                </select>
+                <h5>Select the Categories this Sub Category is part of</h5>
+                <% eventCategories.forEach(function(item){ %>
+                <div class="input-radio input-radio--innerlabel">
+                  <input id="radio-<%= item._id %>"
+                  <%= category ? (category.eventCategories.includes(item._id) ? 'checked' : '') : '' %>
+                  type="checkbox" name="eventCategories[]" value="<%= item._id %>" />
+                  <label for="radio-<%= item._id %>"><%= item.name %></label>
+                </div>
+                <% } )%>
               </div>
               <div class=" col-md-12 form-group">
                 <select class="" name="showOnNavbar" id="showOnNavbar">
@@ -33,7 +35,7 @@
               </div>
               <div class="col-md-12">
                 <input type="text" name="name" value="<%= category?category.name : '' %>" placeholder="Category Name" />
-                <input type="hidden" name="originalName" value="<%= category?category.name : '' %>"/>
+                <input type="hidden" name="originalName" value="<%= category?category.name : '' %>" />
               </div>
 
               <!-- <div class="col-md-12">

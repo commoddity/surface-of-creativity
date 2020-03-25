@@ -12,7 +12,8 @@ const flash = require('connect-flash');
 const passport = require('./auth/passport');
 const moment = require('moment');
 const MongoStore = require('connect-mongo')(session);
-const { EventCategory, Event } = require('./database/Schema');
+const { EventSubCategory, EventCategory, Event } = require('./database/Schema');
+const { _ensureAdmin } = require('./middlewares/admin');
 
 
 const mongoose = require('mongoose');
@@ -70,13 +71,13 @@ app.use(async (req, res, next) => {
   res.locals.moment = moment;
   res.locals.user = req.user;
   res.locals.navbarCategories = await EventCategory.find({ showOnNavbar: true });
+  res.locals.navbarSubCategories = await EventSubCategory.find({ showOnNavbar: true });
   res.locals.blocksSectionCategories = await EventCategory.find({ showOnBlocksSection: true });
   next();
 });
 
 
 // Register app routes
-app.use('/admin/category', require('./routes/category'));
 app.use('/event', require('./routes/event'));
 app.use('/events', async (req, res) => {
   res.locals.search = '';
@@ -87,15 +88,9 @@ app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));
 app.use('/user', require('./routes/user'));
 
-function _ensureAdmin(req, res, next) {
-  console.log(`req.user`, req.user);
-  if (req.user.isAdmin) {
-    next();
-  } else {
-    res.redirect('/')
-  }
-}
 app.use('/admin', connectEnsureLogin.ensureLoggedIn(), _ensureAdmin, require('./routes/admin'));
+app.use('/admin/category', connectEnsureLogin.ensureLoggedIn(), _ensureAdmin, require('./routes/category'));
+app.use('/admin/sub-category', connectEnsureLogin.ensureLoggedIn(), _ensureAdmin, require('./routes/subCategory'));
 
 app.get('/', (req, res) => {
   res.render('index');
