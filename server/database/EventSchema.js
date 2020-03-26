@@ -9,7 +9,7 @@ const EventSchema = new Schema({
   category_id: String,
   subcategory_id: String,
   key: String,
-  title: String,
+  title: { type: String, trim: true, unique: true },
   link: String,
   description: String,
   photo_url: String,

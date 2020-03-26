@@ -40,7 +40,7 @@ router.post('/create/:categoryId?', async (req, res) => {
     if (categoryId) {
       await EventSubCategory.updateOne({ _id: categoryId }, req.body);
       if (req.body.originalName != req.body.name) {
-        await Event.updateMany({ category_id: req.body.originalName }, { category_id: req.body.name });
+        await Event.updateMany({ subcategory_id: req.body.originalName }, { subcategory_id: req.body.name });
       }
     } else {
       req.body.status = 'Review';
